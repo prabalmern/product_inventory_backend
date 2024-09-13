@@ -7,7 +7,7 @@ Ensure you have [Node.js](https://nodejs.org/) installed on your system. This pr
 ## Installation
 
 1. Clone the repository:
-https://github.com/prabalmern/product_inventory_backend.git
+git clone https://github.com/prabalmern/product_inventory_backend.git
 
 Install the project dependencies:
 
