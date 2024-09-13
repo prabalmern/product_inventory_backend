@@ -60,14 +60,41 @@ app.post('/export/pdf', (req, res) => {
 
         doc.pipe(res);
 
-        doc.fontSize(25).text('Product Inventory', { align: 'center' });
+        // Title
+        doc.fontSize(18).text('Product Inventory', { align: 'center' });
         doc.moveDown();
 
+        // Table header
+        const tableTop = 100;
+        const itemHeight = 20;
+        const tableWidth = 520;
+        const columnWidths = [100, 220, 100, 100]; // Adjust these as needed
+        const headers = ['ID', 'Name', 'Price', 'Quantity'];
+
+        doc.fontSize(12).text(headers[0], 50, tableTop);
+        doc.text(headers[1], 150, tableTop);
+        doc.text(headers[2], 370, tableTop);
+        doc.text(headers[3], 470, tableTop);
+
+        // Draw header line
+        doc.moveTo(50, tableTop + 15)
+           .lineTo(580, tableTop + 15)
+           .stroke();
+
+        // Draw table rows
+        let currentY = tableTop + 30;
         selectedData.forEach(item => {
-            doc.text(`Name: ${item.name}`);
-            doc.text(`Price: $${item.price}`);
-            doc.text(`Quantity: ${item.quantity}`);
-            doc.moveDown();
+            doc.text(item.id, 50, currentY);
+            doc.text(item.name, 150, currentY);
+            doc.text(`$${item.price.toFixed(2)}`, 370, currentY);
+            doc.text(item.quantity, 470, currentY);
+
+            // Draw line under each row
+            doc.moveTo(50, currentY + 15)
+               .lineTo(580, currentY + 15)
+               .stroke();
+
+            currentY += itemHeight;
         });
 
         doc.end();
