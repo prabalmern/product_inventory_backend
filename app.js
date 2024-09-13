@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-// Load product data from JSON file
+// data from JSON file
 const loadProductData = () => {
     try {
         const filePath = path.join(__dirname, 'products.json');
@@ -29,7 +29,7 @@ const loadProductData = () => {
 
 const productInventory = loadProductData();
 
-// Get product inventory
+// Get product inventory api
 app.get('/api/products', (req, res) => {
     try {
         res.json(productInventory);
@@ -39,7 +39,7 @@ app.get('/api/products', (req, res) => {
     }
 });
 
-// Get selected data
+
 const getSelectedData = (selectedIds) => {
     return productInventory.filter(product => selectedIds.includes(product.id));
 };
